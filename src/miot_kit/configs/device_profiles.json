@@ -1,0 +1,138 @@
+{
+  "description": "MIoT Device Profiles Configuration",
+  "version": "1.0.0",
+  "profiles": {
+    "xiaomi.light.bulb1": {
+      "name": "Xiaomi Smart Bulb",
+      "category": "light",
+      "capabilities": [
+        "on_off",
+        "brightness",
+        "color_temperature",
+        "color_rgb"
+      ],
+      "properties": {
+        "on": {
+          "siid": 2,
+          "piid": 1,
+          "type": "bool"
+        },
+        "brightness": {
+          "siid": 2,
+          "piid": 2,
+          "type": "int",
+          "min": 1,
+          "max": 100,
+          "unit": "%"
+        },
+        "color_temperature": {
+          "siid": 2,
+          "piid": 3,
+          "type": "int",
+          "min": 1700,
+          "max": 6500,
+          "unit": "kelvin"
+        }
+      }
+    },
+    "xiaomi.sensor.motion": {
+      "name": "Xiaomi Motion Sensor",
+      "category": "sensor",
+      "capabilities": [
+        "motion_detection",
+        "illuminance"
+      ],
+      "properties": {
+        "motion_detected": {
+          "siid": 2,
+          "piid": 1,
+          "type": "bool"
+        },
+        "illuminance": {
+          "siid": 2,
+          "piid": 2,
+          "type": "int",
+          "unit": "lux"
+        }
+      }
+    },
+    "xiaomi.sensor.door": {
+      "name": "Xiaomi Door/Window Sensor",
+      "category": "sensor",
+      "capabilities": [
+        "contact"
+      ],
+      "properties": {
+        "contact": {
+          "siid": 2,
+          "piid": 1,
+          "type": "bool",
+          "description": "true = closed, false = open"
+        }
+      }
+    },
+    "xiaomi.switch.plug": {
+      "name": "Xiaomi Smart Plug",
+      "category": "outlet",
+      "capabilities": [
+        "on_off",
+        "power_monitoring"
+      ],
+      "properties": {
+        "on": {
+          "siid": 2,
+          "piid": 1,
+          "type": "bool"
+        },
+        "power": {
+          "siid": 2,
+          "piid": 2,
+          "type": "float",
+          "unit": "W"
+        }
+      }
+    },
+    "xiaomi.airpurifier.pro": {
+      "name": "Xiaomi Air Purifier Pro",
+      "category": "air_purifier",
+      "capabilities": [
+        "on_off",
+        "fan_speed",
+        "mode",
+        "aqi_monitoring",
+        "filter_life"
+      ],
+      "properties": {
+        "on": {
+          "siid": 2,
+          "piid": 1,
+          "type": "bool"
+        },
+        "fan_speed": {
+          "siid": 2,
+          "piid": 2,
+          "type": "int",
+          "min": 0,
+          "max": 3
+        },
+        "mode": {
+          "siid": 2,
+          "piid": 3,
+          "type": "enum",
+          "values": ["auto", "sleep", "favorite", "idle"]
+        },
+        "aqi": {
+          "siid": 3,
+          "piid": 1,
+          "type": "int"
+        },
+        "filter_life": {
+          "siid": 4,
+          "piid": 1,
+          "type": "int",
+          "unit": "%"
+        }
+      }
+    }
+  }
+}

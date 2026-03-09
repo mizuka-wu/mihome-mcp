@@ -1,0 +1,88 @@
+# MCP 工具中文翻译
+# MIoT MCP Server Chinese Translations
+
+tools:
+  miot_init:
+    name: 初始化 MIoT 客户端
+    description: 使用 OAuth2 认证初始化 MIoT 客户端
+    parameters:
+      uuid: 设备唯一标识符
+      redirectUri: OAuth2 回调地址
+      cloudServer: 云服务器区域（cn, de, us, sg, ru, i2）
+
+  miot_generate_auth_url:
+    name: 生成授权链接
+    description: 生成小米 OAuth2 授权链接，用户需要通过浏览器访问此链接完成登录
+
+  miot_get_access_token:
+    name: 获取访问令牌
+    description: 使用授权码交换访问令牌
+    parameters:
+      code: 从 OAuth2 回调中获取的授权码
+      state: 状态参数，用于安全验证
+
+  miot_get_devices:
+    name: 获取设备列表
+    description: 获取用户账户下的所有小米 IoT 设备列表
+
+  miot_get_device_spec:
+    name: 获取设备规格
+    description: 根据设备型号获取设备的 MIoT Spec 规格信息
+    parameters:
+      model: 设备型号标识符，如 xiaomi.light.bulb1
+
+  miot_get_properties:
+    name: 获取设备属性
+    description: 获取指定设备的属性值
+    parameters:
+      did: 设备 ID
+      siid: 服务实例 ID
+      piid: 属性实例 ID
+
+  miot_set_property:
+    name: 设置设备属性
+    description: 设置指定设备的属性值
+    parameters:
+      did: 设备 ID
+      siid: 服务实例 ID
+      piid: 属性实例 ID
+      value: 要设置的属性值
+
+  miot_do_action:
+    name: 执行设备动作
+    description: 执行设备上的动作（如开关、模式切换等）
+    parameters:
+      did: 设备 ID
+      siid: 服务实例 ID
+      aiid: 动作实例 ID
+      params: 动作参数数组
+
+  miot_get_manual_scenes:
+    name: 获取手动场景
+    description: 获取用户创建的手动场景（自动化）列表
+
+  miot_run_manual_scene:
+    name: 执行手动场景
+    description: 执行指定 ID 的手动场景
+    parameters:
+      sceneId: 场景 ID
+
+  miot_send_notification:
+    name: 发送通知
+    description: 向 MIoT App 发送推送通知
+    parameters:
+      content: 通知内容
+
+errors:
+  client_not_initialized: 客户端未初始化，请先调用 miot_init
+  auth_failed: 认证失败，请检查授权码是否正确
+  device_not_found: 设备未找到
+  network_error: 网络错误，请检查网络连接
+  timeout: 请求超时
+
+messages:
+  init_success: MIoT 客户端初始化成功
+  auth_success: 认证成功，已获取访问令牌
+  device_list_updated: 设备列表已更新
+  scene_executed: 场景执行成功
+  notification_sent: 通知发送成功

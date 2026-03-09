@@ -1,0 +1,25 @@
+{
+  "description": "MIoT Spec Modifications Configuration",
+  "version": "1.0.0",
+  "modifications": {
+    "xiaomi.light.bulb1": {
+      "prop.2.1": {
+        "name": "brightness",
+        "access": ["read", "write", "notify"]
+      },
+      "prop.2.2": {
+        "name": "color_temperature",
+        "unit": "kelvin"
+      },
+      "action.2.1": {
+        "name": "toggle"
+      }
+    },
+    "xiaomi.sensor.motion": {
+      "prop.2.1": {
+        "name": "motion_detected",
+        "access": ["read", "notify"]
+      }
+    }
+  }
+}

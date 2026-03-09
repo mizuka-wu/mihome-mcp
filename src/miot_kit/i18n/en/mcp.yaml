@@ -1,0 +1,88 @@
+# MCP Tool English Translations
+# MIoT MCP Server English Translations
+
+tools:
+  miot_init:
+    name: Initialize MIoT Client
+    description: Initialize MIoT client with OAuth2 authentication
+    parameters:
+      uuid: Device unique identifier
+      redirectUri: OAuth2 redirect URI
+      cloudServer: Cloud server region (cn, de, us, sg, ru, i2)
+
+  miot_generate_auth_url:
+    name: Generate Auth URL
+    description: Generate Xiaomi OAuth2 authorization URL. User needs to visit this URL via browser to complete login
+
+  miot_get_access_token:
+    name: Get Access Token
+    description: Exchange authorization code for access token
+    parameters:
+      code: Authorization code from OAuth2 callback
+      state: State parameter for security validation
+
+  miot_get_devices:
+    name: Get Device List
+    description: Get all Xiaomi IoT devices under user account
+
+  miot_get_device_spec:
+    name: Get Device Spec
+    description: Get MIoT Spec information for a device by model
+    parameters:
+      model: Device model identifier, e.g., xiaomi.light.bulb1
+
+  miot_get_properties:
+    name: Get Device Properties
+    description: Get property values for a specific device
+    parameters:
+      did: Device ID
+      siid: Service instance ID
+      piid: Property instance ID
+
+  miot_set_property:
+    name: Set Device Property
+    description: Set property value for a specific device
+    parameters:
+      did: Device ID
+      siid: Service instance ID
+      piid: Property instance ID
+      value: Property value to set
+
+  miot_do_action:
+    name: Execute Device Action
+    description: Execute actions on device (e.g., toggle, mode switch)
+    parameters:
+      did: Device ID
+      siid: Service instance ID
+      aiid: Action instance ID
+      params: Action parameters array
+
+  miot_get_manual_scenes:
+    name: Get Manual Scenes
+    description: Get list of manual scenes (automations) created by user
+
+  miot_run_manual_scene:
+    name: Execute Manual Scene
+    description: Execute a manual scene by ID
+    parameters:
+      sceneId: Scene ID
+
+  miot_send_notification:
+    name: Send Notification
+    description: Send push notification to MIoT App
+    parameters:
+      content: Notification content
+
+errors:
+  client_not_initialized: Client not initialized, please call miot_init first
+  auth_failed: Authentication failed, please check if authorization code is correct
+  device_not_found: Device not found
+  network_error: Network error, please check network connection
+  timeout: Request timeout
+
+messages:
+  init_success: MIoT client initialized successfully
+  auth_success: Authentication successful, access token obtained
+  device_list_updated: Device list updated
+  scene_executed: Scene executed successfully
+  notification_sent: Notification sent successfully

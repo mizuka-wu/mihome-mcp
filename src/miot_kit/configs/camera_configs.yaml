@@ -1,0 +1,77 @@
+# MIoT Camera Configurations
+# 小米摄像头配置
+
+cameras:
+  xiaomi.camera.mjsxj03hl:
+    name: "Xiaomi Outdoor Camera AW200"
+    model: "mjsxj03hl"
+    p2p_support: true
+    video_qualities:
+      - LOW
+      - HIGH
+    default_quality: HIGH
+    codec: h264
+    audio_codec: aac
+    stream_types:
+      - RTSP
+      - P2P
+
+  xiaomi.camera.c301:
+    name: "Xiaomi Smart Camera C300"
+    model: "c301"
+    p2p_support: true
+    video_qualities:
+      - LOW
+      - HIGH
+    default_quality: HIGH
+    codec: h265
+    audio_codec: aac
+    stream_types:
+      - RTSP
+      - P2P
+      - CLOUD
+
+  chuangmi.camera.ipc009:
+    name: "Xiaomi Smart Camera Standard Edition"
+    model: "ipc009"
+    p2p_support: true
+    video_qualities:
+      - LOW
+      - HIGH
+    default_quality: HIGH
+    codec: h264
+    audio_codec: pcmu
+    stream_types:
+      - RTSP
+      - P2P
+
+  isa.camera.df3:
+    name: "Xiaomi Mi Camera 2K Magnetic Mount"
+    model: "df3"
+    p2p_support: true
+    video_qualities:
+      - LOW
+      - HIGH
+    default_quality: HIGH
+    codec: h265
+    audio_codec: aac
+    stream_types:
+      - RTSP
+      - P2P
+
+# 全局摄像头设置
+global:
+  reconnect_interval: 30
+  max_retry_attempts: 3
+  frame_buffer_size: 100
+  default_frame_rate: 15
+  default_bitrate: 1024
+
+# 平台特定配置（由于我们跳过了原生 P2P 库，这里主要保留配置结构）
+platform:
+  darwin:
+    lib_path: "libs/darwin"
+  linux:
+    lib_path: "libs/linux"
+  win32:
+    lib_path: "libs/win32"

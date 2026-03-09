@@ -1,0 +1,36 @@
+{
+  "description": "MIoT Spec Filters Configuration",
+  "version": "1.0.0",
+  "filters": {
+    "yeelink.light.color1": {
+      "properties": [],
+      "exclude_properties": [],
+      "services": []
+    },
+    "yeelink.light.color2": {
+      "properties": [],
+      "exclude_properties": [],
+      "services": []
+    },
+    "yeelink.light.color4": {
+      "properties": [],
+      "exclude_properties": [],
+      "services": []
+    },
+    "yeelink.light.color5": {
+      "properties": [],
+      "exclude_properties": [],
+      "services": []
+    },
+    "yeelink.light.color6": {
+      "properties": [],
+      "exclude_properties": [],
+      "services": []
+    },
+    "yeelink.light.color7": {
+      "properties": [],
+      "exclude_properties": [],
+      "services": []
+    }
+  }
+}
