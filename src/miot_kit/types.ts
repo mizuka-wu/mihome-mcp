@@ -170,6 +170,9 @@ export const MIoTCameraInfoSchema = z.object({
   channel_count: z.number().default(1),
   lan_status: z.boolean().default(false),
   local_ip: z.optional(z.string()),
+  token: z.string().optional(),
+  key: z.string().optional(),
+  ip: z.string().optional(),
 });
 export type MIoTCameraInfo = z.infer<typeof MIoTCameraInfoSchema>;
 

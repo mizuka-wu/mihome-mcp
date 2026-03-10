@@ -41,6 +41,11 @@ export enum MIoTErrorCode {
 
   // 摄像头错误码
   CODE_CAMERA_ERROR = -10200,
+  CODE_CAMERA_LOAD_LIB_FAIL = -10201,
+  CODE_CAMERA_CREATE_FAIL = -10202,
+  CODE_CAMERA_NOT_INIT = -10203,
+  CODE_CAMERA_CONNECT_FAIL = -10204,
+  CODE_CAMERA_START_STREAM_FAIL = -10205,
 
   // 客户端错误码
   CODE_CLIENT_ERROR = -10300,
@@ -56,9 +61,12 @@ export enum MIoTErrorCode {
 export class MIoTError extends Error {
   code: MIoTErrorCode;
 
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_UNKNOWN) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_UNKNOWN,
+  ) {
     super(message);
-    this.name = 'MIoTError';
+    this.name = "MIoTError";
     this.code = code;
     Object.setPrototypeOf(this, MIoTError.prototype);
   }
@@ -77,89 +85,122 @@ export class MIoTError extends Error {
 // ============================================================================
 
 export class MIoTOAuth2Error extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_OAUTH_UNAUTHORIZED) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_OAUTH_UNAUTHORIZED,
+  ) {
     super(message, code);
-    this.name = 'MIoTOAuth2Error';
+    this.name = "MIoTOAuth2Error";
     Object.setPrototypeOf(this, MIoTOAuth2Error.prototype);
   }
 }
 
 export class MIoTHttpError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_HTTP_INVALID_ACCESS_TOKEN) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_HTTP_INVALID_ACCESS_TOKEN,
+  ) {
     super(message, code);
-    this.name = 'MIoTHttpError';
+    this.name = "MIoTHttpError";
     Object.setPrototypeOf(this, MIoTHttpError.prototype);
   }
 }
 
 export class MIoTMipsError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_MIPS_INVALID_RESULT) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_MIPS_INVALID_RESULT,
+  ) {
     super(message, code);
-    this.name = 'MIoTMipsError';
+    this.name = "MIoTMipsError";
     Object.setPrototypeOf(this, MIoTMipsError.prototype);
   }
 }
 
 export class MIoTDeviceError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_UNKNOWN) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_UNKNOWN,
+  ) {
     super(message, code);
-    this.name = 'MIoTDeviceError';
+    this.name = "MIoTDeviceError";
     Object.setPrototypeOf(this, MIoTDeviceError.prototype);
   }
 }
 
 export class MIoTCameraError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_CAMERA_ERROR) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_CAMERA_ERROR,
+  ) {
     super(message, code);
-    this.name = 'MIoTCameraError';
+    this.name = "MIoTCameraError";
     Object.setPrototypeOf(this, MIoTCameraError.prototype);
   }
 }
 
 export class MIoTSpecError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_SPEC_DEFAULT) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_SPEC_DEFAULT,
+  ) {
     super(message, code);
-    this.name = 'MIoTSpecError';
+    this.name = "MIoTSpecError";
     Object.setPrototypeOf(this, MIoTSpecError.prototype);
   }
 }
 
 export class MIoTStorageError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_RESOURCE_ERROR) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_RESOURCE_ERROR,
+  ) {
     super(message, code);
-    this.name = 'MIoTStorageError';
+    this.name = "MIoTStorageError";
     Object.setPrototypeOf(this, MIoTStorageError.prototype);
   }
 }
 
 export class MIoTCertError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_CERT_INVALID_CERT) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_CERT_INVALID_CERT,
+  ) {
     super(message, code);
-    this.name = 'MIoTCertError';
+    this.name = "MIoTCertError";
     Object.setPrototypeOf(this, MIoTCertError.prototype);
   }
 }
 
 export class MIoTClientError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_CLIENT_ERROR) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_CLIENT_ERROR,
+  ) {
     super(message, code);
-    this.name = 'MIoTClientError';
+    this.name = "MIoTClientError";
     Object.setPrototypeOf(this, MIoTClientError.prototype);
   }
 }
 
 export class MIoTLanError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_LAN_UNAVAILABLE) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_LAN_UNAVAILABLE,
+  ) {
     super(message, code);
-    this.name = 'MIoTLanError';
+    this.name = "MIoTLanError";
     Object.setPrototypeOf(this, MIoTLanError.prototype);
   }
 }
 
 export class MIoTMediaDecoderError extends MIoTError {
-  constructor(message: string, code: MIoTErrorCode = MIoTErrorCode.CODE_MEDIA_DECODER_ERROR) {
+  constructor(
+    message: string,
+    code: MIoTErrorCode = MIoTErrorCode.CODE_MEDIA_DECODER_ERROR,
+  ) {
     super(message, code);
-    this.name = 'MIoTMediaDecoderError';
+    this.name = "MIoTMediaDecoderError";
     Object.setPrototypeOf(this, MIoTMediaDecoderError.prototype);
   }
 }
@@ -168,4 +209,4 @@ export class MIoTMediaDecoderError extends MIoTError {
 // 导出所有错误
 // ============================================================================
 
-export * from './error';
+export * from "./error";
