@@ -1,19 +1,29 @@
-declare module "ffi-napi" {
-  export interface Library {
-    [key: string]: (...args: unknown[]) => unknown;
+declare module "node-ffi-rs" {
+  export enum DataType {
+    Void = "void",
+    I32 = "i32",
+    I64 = "i64",
+    U32 = "u32",
+    U64 = "u64",
+    F32 = "f32",
+    F64 = "f64",
+    String = "string",
+    Boolean = "bool",
+    Pointer = "pointer",
+    Buffer = "buffer",
+    External = "external",
   }
 
-  export function Library(
-    libPath: string,
-    functions: Record<string, [string, string[]]>,
-  ): Library;
-}
+  export interface FunctionDefinition {
+    parameters: DataType[];
+    returnType: DataType;
+  }
 
-declare module "ref-napi" {
-  export function alloc(type: string, value?: unknown): Buffer;
-  export function refType(type: string): string;
-  export const NULL: Buffer;
-  export function deref(buffer: Buffer): unknown;
-  export function readInt32(buffer: Buffer, offset?: number): number;
-  export function readInt64(buffer: Buffer, offset?: number): number;
+  export interface LoadOptions<T> {
+    library: string;
+    path: string;
+    functions: Record<keyof T, FunctionDefinition>;
+  }
+
+  export function load<T>(options: LoadOptions<T>): T;
 }
