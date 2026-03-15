@@ -4,6 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from "vitest";
+import axios from "axios";
 import { MIoTSpecParser } from "../spec";
 
 describe("Spec Module", () => {
@@ -21,8 +22,10 @@ describe("Spec Module", () => {
 
   describe("getSpec", () => {
     it("should return null for invalid model (when API fails)", async () => {
-      // This test may make an actual HTTP request
-      // In real tests, you would mock axios
+      vi.spyOn(axios, "get").mockResolvedValue({
+        status: 404,
+        data: null,
+      } as any);
       const spec = await parser.getSpec("invalid.model.that.does.not.exist");
       // Will likely return null due to API error
       expect(spec).toBeNull();

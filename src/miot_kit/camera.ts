@@ -3,8 +3,7 @@
  * 摄像头模块，通过 FFI 调用 libmiot_camera_lite 实现 P2P 视频流
  */
 
-import ffi from "ffi-napi";
-import ref from "ref-napi";
+import { createRequire } from "module";
 import { promises as fs } from "fs";
 import { join } from "path";
 import { platform, arch } from "os";
@@ -35,6 +34,36 @@ interface VideoFrame {
   height: number;
   timestamp: number;
   isKeyframe: boolean;
+}
+
+type FfiModule = {
+  Library: (
+    libPath: string,
+    functions: Record<string, [string, string[]]>,
+  ) => any;
+};
+
+type RefModule = {
+  alloc: (type: string, value?: unknown) => Buffer;
+  refType: (type: string) => string;
+  NULL: Buffer;
+};
+
+let ffi: FfiModule | null = null;
+let ref: RefModule | null = null;
+
+function ensureNativeDeps(): { ffi: FfiModule; ref: RefModule } {
+  if (ffi && ref) return { ffi, ref };
+
+  const require = createRequire(import.meta.url);
+  const ffiName = "ffi-napi";
+  const refName = "ref-napi";
+
+  // Use non-literal require targets to reduce bundler static detection.
+  ffi = require(ffiName) as FfiModule;
+  ref = require(refName) as RefModule;
+
+  return { ffi, ref };
 }
 
 // ============================================================================
@@ -82,7 +111,8 @@ function getLibPath(): string {
   );
 }
 
-function loadLibrary(): ffi.Library {
+function loadLibrary(): any {
+  const { ffi, ref } = ensureNativeDeps();
   const libPath = getLibPath();
   const fullPath = join(__dirname, libPath);
 
@@ -132,7 +162,7 @@ function loadLibrary(): ffi.Library {
 // ============================================================================
 
 export class MIoTCameraManager {
-  private lib: ffi.Library | null = null;
+  private lib: any | null = null;
   private instances: Map<string, MIoTCameraInstance> = new Map();
   private frameInterval: number;
   private enableHwAccel: boolean;
@@ -210,7 +240,7 @@ export class MIoTCameraManager {
 // ============================================================================
 
 export class MIoTCameraInstance {
-  private lib: ffi.Library;
+  private lib: any;
   private cInstance: Buffer | null = null;
   private frameInterval: number;
   private enableHwAccel: boolean;
@@ -223,7 +253,7 @@ export class MIoTCameraInstance {
   private frameLoopId: NodeJS.Timeout | null = null;
 
   constructor(
-    lib: ffi.Library,
+    lib: any,
     frameInterval: number,
     enableHwAccel: boolean,
     cameraInfo: MIoTCameraInfo,
@@ -368,6 +398,8 @@ export class MIoTCameraInstance {
 
   private captureFrame(): void {
     if (!this.cInstance || !this.lib || !this.streaming) return;
+
+    const { ref } = ensureNativeDeps();
 
     // 分配缓冲区
     const bufferSize = 1024 * 1024; // 1MB 缓冲区
